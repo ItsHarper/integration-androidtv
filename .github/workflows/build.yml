@@ -12,7 +12,7 @@ on:
     types: [opened, synchronize, reopened]
 
 env:
-  INTG_NAME: androidtv
+  INTG_NAME: androidtv-harper
   HASH_FILENAME: uc-intg-androidtv.hash
   BUILD_CHANGELOG: build-changelog.md
   # Python version to use in the builder image. See https://hub.docker.com/r/unfoldedcircle/r2-pyinstaller for possible versions.
@@ -85,7 +85,7 @@ jobs:
           mkdir -p artifacts
           cd artifacts
           echo ${{ env.VERSION }} > version.txt
-          
+
       - name: Prepare artifacts
         shell: bash
         run: |
@@ -96,13 +96,13 @@ jobs:
           cp -r config artifacts/
           cp LICENSE artifacts/
           echo "ARTIFACT_NAME=uc-intg-${{ env.INTG_NAME }}-${{ env.VERSION }}-aarch64" >> $GITHUB_ENV
-          
+
       - name: Create upload artifact
         shell: bash
-        run: | 
+        run: |
           tar czvf ${{ env.ARTIFACT_NAME }}.tar.gz -C ${GITHUB_WORKSPACE}/artifacts .
           ls -lah
-          
+
       - uses: actions/upload-artifact@v4
         id: upload_artifact
         with:
@@ -154,7 +154,7 @@ jobs:
           ls -R
           # extract tar.gz build archives from downloaded artifacts
           # (wrapped in tar from actions/upload-artifact, then extracted into a directory by actions/download-artifact)
-          for D in * 
+          for D in *
             do if [ -d "${D}" ]; then
               mv $D/* ./
             fi
@@ -215,4 +215,4 @@ jobs:
           generate_release_notes: true
           files: |
             *.tar.gz
-            ${{ env.HASH_FILENAME }}            
+            ${{ env.HASH_FILENAME }}
