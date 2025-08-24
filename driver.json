@@ -1,8 +1,8 @@
 {
-	"driver_id": "androidtv",
+	"driver_id": "androidtv-harper",
 	"version": "0.7.4",
 	"min_core_api": "0.20.0",
-	"name": { "en": "Android TV" },
+	"name": { "en": "Android TV (Harper's version)" },
 	"icon": "uc:integration",
 	"description": {
 		"en": "Control your Android TV with Remote Two/3.",
